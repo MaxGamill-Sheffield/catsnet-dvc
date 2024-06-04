@@ -24,8 +24,10 @@ def data_split(
     logger.info("Data split: Discovering images and masks.")
     # Find the maximum index of images and ground truth masks
     images = list(data_dir.glob("**/image_*.npy"))
+    images.sort()
     num_images = len(images)
     masks = list(data_dir.glob("**/mask_*.npy"))
+    masks.sort()
     num_masks = len(masks)
     if num_images != num_masks:
         raise ValueError("Different number of images and masks.")
