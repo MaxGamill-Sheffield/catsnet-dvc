@@ -23,37 +23,39 @@ def data_split(
 
     logger.info("Data split: Discovering images and masks.")
     # Find the maximum index of images and ground truth masks
-    num_images = len(list(data_dir.glob("image_*.npy")))
-    num_masks = len(list(data_dir.glob("mask_*.npy")))
+    images = list(data_dir.glob("**/image_*.npy"))
+    num_images = len(images)
+    masks = list(data_dir.glob("**/mask_*.npy"))
+    num_masks = len(masks)
     if num_images != num_masks:
         raise ValueError("Different number of images and masks.")
 
     # Train test split
-    image_indexes = [int(re.search(r"\d+", file.name).group()) for file in data_dir.glob("image_*.npy")]
-    mask_indexes = [int(re.search(r"\d+", file.name).group()) for file in data_dir.glob("mask_*.npy")]
+    image_indexes = [int(re.search(r"\d+", file.name).group()) for file in data_dir.glob("**/image_*.npy")]
+    mask_indexes = [int(re.search(r"\d+", file.name).group()) for file in data_dir.glob("**/mask_*.npy")]
 
     if set(image_indexes) != set(mask_indexes):
         raise ValueError(f"Different image and mask indexes : {image_indexes} and {mask_indexes}")
 
     logger.info(f"Data split: Found {len(image_indexes)} images and masks in {data_dir}.")
-    train_indexes, test_indexes = train_test_split(image_indexes, test_size=test_split, random_state=random_seed)
-    logger.info(f"Data split: Split into {len(train_indexes)} training images and {len(test_indexes)} test images.")
+    train_imgs, test_imgs, train_masks, test_masks = train_test_split(images, masks, test_size=test_split, random_state=random_seed)
+    logger.info(f"Data split: Split into {len(train_imgs)} training images and {len(test_imgs)} test images.")
 
     # Copy the images and masks to the train and test directories
     logger.info("Data split: Copying images and masks to train and test directories.")
-    for index in train_indexes:
-        shutil.copy(data_dir / f"image_{index}.npy", train_data_dir / f"image_{index}.npy")
-        shutil.copy(data_dir / f"mask_{index}.npy", train_data_dir / f"mask_{index}.npy")
-        # Copy the pngs too
-        shutil.copy(data_dir / f"image_{index}.png", train_data_dir / f"image_{index}.png")
-        shutil.copy(data_dir / f"mask_{index}.png", train_data_dir / f"mask_{index}.png")
-
-    for index in test_indexes:
-        shutil.copy(data_dir / f"image_{index}.npy", test_data_dir / f"image_{index}.npy")
-        shutil.copy(data_dir / f"mask_{index}.npy", test_data_dir / f"mask_{index}.npy")
-        # Copy the pngs too
-        shutil.copy(data_dir / f"image_{index}.png", test_data_dir / f"image_{index}.png")
-        shutil.copy(data_dir / f"mask_{index}.png", test_data_dir / f"mask_{index}.png")
+    for img, msk in zip(train_imgs, train_masks):  # training data
+        shutil.copy(img, train_data_dir / img.name)
+        shutil.copy(msk, train_data_dir / msk.name)
+        # copy over png's too
+        shutil.copy(img.parent / str(img.stem + '.png'), train_data_dir / str(img.stem + '.png'))
+        shutil.copy(msk.parent / str(msk.stem + '.png'), train_data_dir / str(msk.stem + '.png'))
+    
+    for img, msk in zip(test_imgs, test_masks): # testing data
+        shutil.copy(img, test_data_dir / img.name)
+        shutil.copy(msk, test_data_dir / msk.name)
+        # copy over png's too
+        shutil.copy(img.parent / str(img.stem + '.png'), test_data_dir / str(img.stem + '.png'))
+        shutil.copy(msk.parent / str(msk.stem + '.png'), test_data_dir / str(msk.stem + '.png'))
 
     logger.info(f"Data split: Complete. Saved to {train_data_dir} and {test_data_dir} directories.")
 
