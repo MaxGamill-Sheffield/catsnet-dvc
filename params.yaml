@@ -3,12 +3,12 @@ base:
   model_image_size: 256
 data_split:
   test_split: 0.2
-  data_dir: /Volumes/shared/pyne_group/Shared/machine-learning/project_cats
-  train_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
-  test_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
+  data_dir: data/all_data
+  train_data_dir: data/train/
+  test_data_dir: data/test/
 train:
-  train_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
-  model_save_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/
+  train_data_dir: data/train/
+  model_save_dir: models/
   batch_size: 2
   epochs: 25
   activation_function: relu
@@ -66,8 +66,8 @@ train:
         upper_clip: 4
         p: 0.5
 evaluate:
-  model_path: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
-  test_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
+  model_path: models/catsnet_model.keras
+  test_data_dir: data/test/
 
 
 

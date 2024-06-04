@@ -2,46 +2,46 @@ stages:
   data_split:
     cmd: python src/data_split.py
     deps:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/all_data/
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/data_split.py
+    - data/all_data/
+    - src/data_split.py
     params:
     - base
     - data_split
     outs:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train
+    - data/test
+    - data/train
   train:
     cmd: python src/train.py
     deps:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/train.py
+    - data/train/
+    - src/train.py
     params:
     - base
     - train
     outs:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/
+    - models/catsnet_model.keras
+    - results/train/
   evaluate:
     cmd: python src/evaluate.py
     deps:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/evaluate.py
+    - data/test/
+    - models/catsnet_model.keras
+    - src/evaluate.py
     params:
     - base
     - evaluate
     outs:
-    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/
+    - results/evaluate/
 metrics:
-- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/metrics.json
-- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/metrics.json
+- results/train/metrics.json
+- results/evaluate/metrics.json
 plots:
-- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/plots/metrics:
+- results/train/plots/metrics:
     x: step
-- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/plots/images
+- results/evaluate/plots/images
 artifacts:
   catsnet_model:
-    path: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
+    path: models/catsnet_model.keras
     type: model
     desc: Model trained to segment cats.
     labels:
