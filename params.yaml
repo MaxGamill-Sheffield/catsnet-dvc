@@ -3,61 +3,71 @@ base:
   model_image_size: 256
 data_split:
   test_split: 0.2
-  data_dir: /Volumes/shared/pyne_group/Shared/machine-learning/project_cats/
-  train_data_dir: data/train/
-  test_data_dir: data/test/
+  data_dir: /Volumes/shared/pyne_group/Shared/machine-learning/project_cats
+  train_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
+  test_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
 train:
-  train_data_dir: data/train/
-  model_save_dir: models/
+  train_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
+  model_save_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/
   batch_size: 2
-  epochs: 5
+  epochs: 25
   activation_function: relu
   learning_rate: 0.0001
   validation_split: 0.2
   augmentations:
     random_crop:
       run: false
-      width: null  # has to be an integer
-      height: null  # has to be an integer
-      p: 0.5
+      params:
+        width: null  # has to be an integer
+        height: null  # has to be an integer
+        p: 0.5
     horrizontal_flip:
       run: false
-      p: 0.5
+      params:
+        p: 0.5
     vertical_flip:
       run: false
-      p: 0.5
+      params:
+        p: 0.5
     rotate_90:
       run: false
-      p: 0.5
+      params:
+        p: 0.5
     brightness_contrast:
       run: false
-      brightness_limit: [-0.2, 0.2]
-      contrast_limit: [-0.2, 0.2]
-      p: 0.5
+      params:
+        brightness_limit: [-0.2, 0.2]
+        contrast_limit: [-0.2, 0.2]
+        p: 0.5
     blur:
       run: false
-      blur_limit: 7
-      p: 0.5
+      params:
+        blur_limit: 7
+        p: 0.5
     gauss_noise:
       run: false
-      var_limit: [10, 50]
-      p: 0.5
+      params:
+        var_limit: [10, 50]
+        p: 0.5
     elastic:
       run: false
-      p: 0.5
+      params:
+        p: 0.5
     clip_and_normalise:
       run: true
-      lower_clip: -1.0
-      upper_clip: 4.0
-      p: 0.5
+      params:
+        lower_clip: -1.0
+        upper_clip: 4.0
+        p: 0.5
     clip_and_mean_normalise:
       run: false
-      lower_clip: -1
-      upper_clip: 4
-      p: 0.5
+      params:
+        lower_clip: -1
+        upper_clip: 4
+        p: 0.5
 evaluate:
-  model_path: models/catsnet_model.keras
-  test_data_dir: data/test/
+  model_path: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
+  test_data_dir: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
 
 
 
