@@ -94,15 +94,13 @@ def compile_augmentations(augmentations: dict) -> alb.core.composition.Compose:
         }
     augmentation_functions = []
     for augmentation, params in augmentations.items():
-        if params.pop('run'):
+        if params['run']:
             # append to the tranform sequence
             try:
-                augmentation_functions.append(augmentation_keys[augmentation](**params))
+                augmentation_functions.append(augmentation_keys[augmentation](**params["params"]))
             except KeyError as e:
                 logger.info(f"KeyError: {e} not in available augmentations")
-        else:
-            logger.info(f"Augmentation: {augmentation} is turned off")
-    
+
     return alb.Compose(augmentation_functions)
 
 
