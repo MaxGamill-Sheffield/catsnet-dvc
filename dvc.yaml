@@ -1,15 +1,15 @@
 stages:
-  data_split:
-    cmd: python src/data_split.py
-    deps:
-    - data/all_data/
-    - src/data_split.py
-    params:
-    - base
-    - data_split
-    outs:
-    - data/test
-    - data/train
+  #data_split:
+  #  cmd: python src/data_split.py
+  #  deps:
+  #  - data/all_data/
+  #  - src/data_split.py
+  #  params:
+  #  - base
+  #  - data_split
+  #  outs:
+  #  - data/test
+  #  - data/train
   train:
     cmd: python src/train.py
     deps:
