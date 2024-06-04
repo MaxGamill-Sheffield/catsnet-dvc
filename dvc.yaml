@@ -1,47 +1,47 @@
 stages:
-  #data_split:
-  #  cmd: python src/data_split.py
-  #  deps:
-  #  - data/all_data/
-  #  - src/data_split.py
-  #  params:
-  #  - base
-  #  - data_split
-  #  outs:
-  #  - data/test
-  #  - data/train
+  data_split:
+    cmd: python src/data_split.py
+    deps:
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/all_data/
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/data_split.py
+    params:
+    - base
+    - data_split
+    outs:
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train
   train:
     cmd: python src/train.py
     deps:
-    - data/train/
-    - src/train.py
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/train/
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/train.py
     params:
     - base
     - train
     outs:
-    - models/catsnet_model.keras
-    - results/train/
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/
   evaluate:
     cmd: python src/evaluate.py
     deps:
-    - data/test/
-    - models/catsnet_model.keras
-    - src/evaluate.py
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/data/test/
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/src/evaluate.py
     params:
     - base
     - evaluate
     outs:
-    - results/evaluate/
+    - /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/
 metrics:
-- results/train/metrics.json
-- results/evaluate/metrics.json
+- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/metrics.json
+- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/metrics.json
 plots:
-- results/train/plots/metrics:
+- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/train/plots/metrics:
     x: step
-- results/evaluate/plots/images
+- /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/results/evaluate/plots/images
 artifacts:
   catsnet_model:
-    path: models/catsnet_model.keras
+    path: /Users/Maxgamill/Desktop/Uni/PhD/cats_dvc/catsnet-dvc/models/catsnet_model.keras
     type: model
     desc: Model trained to segment cats.
     labels:
